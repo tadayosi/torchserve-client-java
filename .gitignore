@@ -1,0 +1,6 @@
+target/
+data/
+
+# IDE
+.idea/
+.vscode/
