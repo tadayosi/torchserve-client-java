@@ -15,12 +15,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
-import org.testcontainers.utility.MountableFile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -29,20 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Testcontainers
-public class ManagementTest {
+public class ManagementTest extends TorchServeTestSupport {
 
     private static final String DEFAULT_MODEL = "squeezenet1_1";
     private static final String DEFAULT_MODEL_VERSION = "1.0";
     private static final String ADDED_MODEL = "mnist_v2";
     private static final String ADDED_MODEL_VERSION = "2.0";
-
-    @Container
-    public static GenericContainer<?> torchServe = new GenericContainer<>(DockerImageName.parse("tadayosi/torchserve"))
-        .withExposedPorts(8081)
-        .withCopyFileToContainer(MountableFile.forClasspathResource("config.properties"), "/home/model-server/config.properties")
-        .withCopyFileToContainer(MountableFile.forClasspathResource("models/squeezenet1_1.mar"), "/home/model-server/model-store/squeezenet1_1.mar")
-        .waitingFor(Wait.forListeningPorts(8081))
-        .withCommand("torchserve --ncs --disable-token-auth --enable-model-api --model-store /home/model-server/model-store --models squeezenet1_1.mar");
 
     private Management management;
 
