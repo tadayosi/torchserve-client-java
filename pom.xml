@@ -26,6 +26,8 @@
 
     <swagger-codegen-maven-plugin-version>3.0.62</swagger-codegen-maven-plugin-version>
     <build-helper-maven-plugin-version>3.6.0</build-helper-maven-plugin-version>
+    <maven-surefire-plugin-version>3.5.0</maven-surefire-plugin-version>
+    <maven-failsafe-plugin-version>3.5.0</maven-failsafe-plugin-version>
   </properties>
 
   <dependencyManagement>
@@ -82,7 +84,7 @@
     <!-- Testing -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -185,6 +187,14 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin-version}</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-failsafe-plugin-version}</version>
       </plugin>
     </plugins>
   </build>
