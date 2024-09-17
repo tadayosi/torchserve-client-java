@@ -1,7 +1,10 @@
 package com.github.tadayosi.torchserve.client;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 
+import com.github.tadayosi.torchserve.client.impl.DefaultInference;
 import com.github.tadayosi.torchserve.client.impl.DefaultManagement;
 import com.github.tadayosi.torchserve.client.management.invoker.ApiException;
 import com.github.tadayosi.torchserve.client.management.model.InlineResponse200;
@@ -19,6 +22,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -30,6 +34,7 @@ public class ManagementTest extends TorchServeTestSupport {
     private static final String DEFAULT_MODEL_VERSION = "1.0";
     private static final String ADDED_MODEL = "mnist_v2";
     private static final String ADDED_MODEL_VERSION = "2.0";
+    private static final String TEST_DATA_DIR = "src/test/resources/data";
 
     private Management management;
 
@@ -85,20 +90,34 @@ public class ManagementTest extends TorchServeTestSupport {
 
             @Test
             public void testSetAutoScale() throws Exception {
-                var response = management.setAutoScale(ADDED_MODEL,
+                var response1 = management.setAutoScale(ADDED_MODEL,
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
                         .build());
-                assertTrue(((InlineResponse2002) response).getStatus().contains("Processing worker updates"));
+                assertTrue(((InlineResponse2002) response1).getStatus().contains("Processing worker updates"));
+
+                // Testing inference with MNIST V2
+                var inference = new DefaultInference(torchServe.getMappedPort(8080));
+                var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "0.png"));
+                var response2 = inference.predictions(ADDED_MODEL, body);
+                assertInstanceOf(Double.class, response2);
+                assertEquals(0.0, (Double) response2, 0.001);
             }
 
             @Test
             public void testSetAutoScale_version() throws Exception {
-                var response = management.setAutoScale(ADDED_MODEL, ADDED_MODEL_VERSION,
+                var response1 = management.setAutoScale(ADDED_MODEL, ADDED_MODEL_VERSION,
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
                         .build());
-                assertTrue(((InlineResponse2002) response).getStatus().contains("Processing worker updates"));
+                assertTrue(((InlineResponse2002) response1).getStatus().contains("Processing worker updates"));
+
+                // Testing inference with MNIST V2
+                var inference = new DefaultInference(torchServe.getMappedPort(8080));
+                var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "1.png"));
+                var response2 = inference.predictions(ADDED_MODEL, body);
+                assertInstanceOf(Double.class, response2);
+                assertEquals(1.0, (Double) response2, 0.001);
             }
         }
     }
