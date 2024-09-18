@@ -1,11 +1,17 @@
 package com.github.tadayosi.torchserve.client.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.tadayosi.torchserve.client.Management;
 import com.github.tadayosi.torchserve.client.management.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.management.invoker.ApiClient;
+import com.github.tadayosi.torchserve.client.model.API;
+import com.github.tadayosi.torchserve.client.model.Model;
+import com.github.tadayosi.torchserve.client.model.ModelDetail;
+import com.github.tadayosi.torchserve.client.model.ModelList;
 import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
+import com.github.tadayosi.torchserve.client.model.Response;
 import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
 import com.github.tadayosi.torchserve.client.model.UnregisterModelOptions;
 
@@ -23,8 +29,8 @@ public class DefaultManagement implements Management {
     }
 
     @Override
-    public Object registerModel(String url, RegisterModelOptions options) throws Exception {
-        return api.registerModel(url, null,
+    public Response registerModel(String url, RegisterModelOptions options) throws Exception {
+        return Response.from(api.registerModel(url, null,
             options.getModelName(),
             options.getHandler(),
             options.getRuntime(),
@@ -33,66 +39,67 @@ public class DefaultManagement implements Management {
             options.getResponseTimeout(),
             options.getInitialWorkers(),
             options.getSynchronous(),
-            options.getS3SseKms());
+            options.getS3SseKms()));
     }
 
     @Override
-    public Object setAutoScale(String modelName, SetAutoScaleOptions options) throws Exception {
-        return api.setAutoScale(modelName,
+    public Response setAutoScale(String modelName, SetAutoScaleOptions options) throws Exception {
+        return Response.from(api.setAutoScale(modelName,
             options.getMinWorker(),
             options.getMaxWorker(),
             options.getNumberGpu(),
             options.getSynchronous(),
-            options.getTimeout());
+            options.getTimeout()));
     }
 
     @Override
-    public Object setAutoScale(String modelName, String modelVersion, SetAutoScaleOptions options) throws Exception {
-        return api.versionSetAutoScale(modelName, modelVersion,
+    public Response setAutoScale(String modelName, String modelVersion, SetAutoScaleOptions options) throws Exception {
+        return Response.from(api.versionSetAutoScale(modelName, modelVersion,
             options.getMinWorker(),
             options.getMaxWorker(),
             options.getNumberGpu(),
             options.getSynchronous(),
-            options.getTimeout());
+            options.getTimeout()));
     }
 
     @Override
-    public List<Object> describeModel(String modelName) throws Exception {
-        return List.copyOf(api.describeModel(modelName));
+    public List<ModelDetail> describeModel(String modelName) throws Exception {
+        return ModelDetail.from(api.describeModel(modelName));
     }
 
     @Override
-    public List<Object> describeModel(String modelName, String modelVersion) throws Exception {
-        return List.copyOf(api.versionDescribeModel(modelName, modelVersion));
+    public List<ModelDetail> describeModel(String modelName, String modelVersion) throws Exception {
+        return ModelDetail.from(api.versionDescribeModel(modelName, modelVersion));
     }
 
     @Override
-    public Object unregisterModel(String modelName, UnregisterModelOptions options) throws Exception {
-        return api.unregisterModel(modelName,
+    public Response unregisterModel(String modelName, UnregisterModelOptions options) throws Exception {
+        return Response.from(api.unregisterModel(modelName,
             options.getSynchronous(),
-            options.getTimeout());
+            options.getTimeout()));
     }
 
     @Override
-    public Object unregisterModel(String modelName, String modelVersion, UnregisterModelOptions options) throws Exception {
-        return api.versionUnregisterModel(modelName, modelVersion,
+    public Response unregisterModel(String modelName, String modelVersion, UnregisterModelOptions options)
+        throws Exception {
+        return Response.from(api.versionUnregisterModel(modelName, modelVersion,
             options.getSynchronous(),
-            options.getTimeout());
+            options.getTimeout()));
     }
 
     @Override
-    public Object listModels(Integer limit, String nextPageToken) throws Exception {
-        return api.listModels(limit, nextPageToken);
+    public ModelList listModels(Integer limit, String nextPageToken) throws Exception {
+        return ModelList.from(api.listModels(limit, nextPageToken));
     }
 
     @Override
-    public Object setDefault(String modelName, String modelVersion) throws Exception {
-        return api.setDefault(modelName, modelVersion);
+    public Response setDefault(String modelName, String modelVersion) throws Exception {
+        return Response.from(api.setDefault(modelName, modelVersion));
     }
 
     @Override
-    public Object apiDescription() throws Exception {
-        return api.apiDescription();
+    public API apiDescription() throws Exception {
+        return API.from(api.apiDescription());
     }
 
     @Override

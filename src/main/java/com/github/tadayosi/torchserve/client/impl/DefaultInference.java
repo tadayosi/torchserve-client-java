@@ -3,6 +3,8 @@ package com.github.tadayosi.torchserve.client.impl;
 import com.github.tadayosi.torchserve.client.Inference;
 import com.github.tadayosi.torchserve.client.inference.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.inference.invoker.ApiClient;
+import com.github.tadayosi.torchserve.client.model.API;
+import com.github.tadayosi.torchserve.client.model.Response;
 
 public class DefaultInference implements Inference {
 
@@ -18,13 +20,13 @@ public class DefaultInference implements Inference {
     }
 
     @Override
-    public Object apiDescription() throws Exception {
-        return api.apiDescription();
+    public API apiDescription() throws Exception {
+        return API.from(api.apiDescription());
     }
 
     @Override
-    public Object ping() throws Exception {
-        return api.ping();
+    public Response ping() throws Exception {
+        return Response.from(api.ping());
     }
 
     @Override

@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.Map;
 
 import com.github.tadayosi.torchserve.client.impl.DefaultInference;
-import com.github.tadayosi.torchserve.client.inference.model.InlineResponse2001;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -19,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class InferenceTest extends TorchServeTestSupport {
 
     private static final String DEFAULT_MODEL = "squeezenet1_1";
+    private static final String DEFAULT_MODEL_VERSION = "1.0";
     private static final String TEST_DATA = "src/test/resources/data/kitten.jpg";
 
     private Inference inference;
@@ -36,7 +36,7 @@ public class InferenceTest extends TorchServeTestSupport {
 
     @Test
     public void testPing() throws Exception {
-        var response = (InlineResponse2001) inference.ping();
+        var response = inference.ping();
         assertEquals("Healthy", response.getStatus());
     }
 
@@ -49,9 +49,8 @@ public class InferenceTest extends TorchServeTestSupport {
 
     @Test
     public void testPredictions_version() throws Exception {
-        var modelVersion = "1.0";
         var body = Files.readAllBytes(Path.of(TEST_DATA));
-        var response = inference.predictions(DEFAULT_MODEL, modelVersion, body);
+        var response = inference.predictions(DEFAULT_MODEL, DEFAULT_MODEL_VERSION, body);
         assertInstanceOf(Map.class, response);
     }
 

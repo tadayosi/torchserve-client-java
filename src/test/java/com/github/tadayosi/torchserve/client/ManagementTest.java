@@ -2,15 +2,10 @@ package com.github.tadayosi.torchserve.client;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 import com.github.tadayosi.torchserve.client.impl.DefaultInference;
 import com.github.tadayosi.torchserve.client.impl.DefaultManagement;
 import com.github.tadayosi.torchserve.client.management.invoker.ApiException;
-import com.github.tadayosi.torchserve.client.management.model.InlineResponse200;
-import com.github.tadayosi.torchserve.client.management.model.InlineResponse2001;
-import com.github.tadayosi.torchserve.client.management.model.InlineResponse2002;
-import com.github.tadayosi.torchserve.client.management.model.InlineResponse2003;
 import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
 import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
 import com.github.tadayosi.torchserve.client.model.UnregisterModelOptions;
@@ -48,7 +43,7 @@ public class ManagementTest extends TorchServeTestSupport {
         var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
         try {
             var response = management.registerModel(url, RegisterModelOptions.empty());
-            assertTrue(((InlineResponse2002) response).getStatus().contains("registered"));
+            assertTrue(response.getStatus().contains("registered"));
         } catch (ApiException e) {
             e.printStackTrace();
             fail(e.getResponseBody());
@@ -71,13 +66,13 @@ public class ManagementTest extends TorchServeTestSupport {
         @Test
         public void testUnregisterModel() throws Exception {
             var response = management.unregisterModel(ADDED_MODEL, UnregisterModelOptions.empty());
-            assertTrue(((InlineResponse2002) response).getStatus().contains("unregistered"));
+            assertTrue(response.getStatus().contains("unregistered"));
         }
 
         @Test
         public void testUnregisterModel_version() throws Exception {
             var response = management.unregisterModel(ADDED_MODEL, ADDED_MODEL_VERSION, UnregisterModelOptions.empty());
-            assertTrue(((InlineResponse2002) response).getStatus().contains("unregistered"));
+            assertTrue(response.getStatus().contains("unregistered"));
         }
 
         @Nested
@@ -94,7 +89,7 @@ public class ManagementTest extends TorchServeTestSupport {
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
                         .build());
-                assertTrue(((InlineResponse2002) response1).getStatus().contains("Processing worker updates"));
+                assertTrue(response1.getStatus().contains("Processing worker updates"));
 
                 // Testing inference with MNIST V2
                 var inference = new DefaultInference(torchServe.getMappedPort(8080));
@@ -110,7 +105,7 @@ public class ManagementTest extends TorchServeTestSupport {
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
                         .build());
-                assertTrue(((InlineResponse2002) response1).getStatus().contains("Processing worker updates"));
+                assertTrue(response1.getStatus().contains("Processing worker updates"));
 
                 // Testing inference with MNIST V2
                 var inference = new DefaultInference(torchServe.getMappedPort(8080));
@@ -126,15 +121,15 @@ public class ManagementTest extends TorchServeTestSupport {
     public void testDescribeModel() throws Exception {
         var response = management.describeModel(DEFAULT_MODEL);
         assertEquals(1, response.size());
-        assertEquals("squeezenet1_1", ((InlineResponse2003) response.get(0)).getModelName());
+        assertEquals("squeezenet1_1", response.get(0).getModelName());
     }
 
     @Test
     public void testDescribeModel_version() throws Exception {
         var response = management.describeModel(DEFAULT_MODEL, DEFAULT_MODEL_VERSION);
         assertEquals(1, response.size());
-        assertEquals("squeezenet1_1", ((InlineResponse2003) response.get(0)).getModelName());
-        assertEquals("1.0", ((InlineResponse2003) response.get(0)).getModelVersion());
+        assertEquals("squeezenet1_1", response.get(0).getModelName());
+        assertEquals("1.0", response.get(0).getModelVersion());
     }
 
     @Test
@@ -142,21 +137,21 @@ public class ManagementTest extends TorchServeTestSupport {
         int limit = 10;
         String nextPageToken = null;
         var response = management.listModels(limit, nextPageToken);
-        var models = ((InlineResponse2001) response).getModels();
+        var models = response.getModels();
         assertFalse(models.isEmpty());
-        assertEquals(DEFAULT_MODEL, ((Map<?, ?>) models.get(0)).get("modelName"));
+        assertEquals(DEFAULT_MODEL, models.get(0).getModelName());
     }
 
     @Test
     public void testSetDefault() throws Exception {
         var response = management.setDefault(DEFAULT_MODEL, DEFAULT_MODEL_VERSION);
-        assertTrue(((InlineResponse2002) response).getStatus().contains("Default vesion succsesfully updated"));
+        assertTrue(response.getStatus().contains("Default vesion succsesfully updated"));
     }
 
     @Test
     public void testApiDescription() throws Exception {
         var response = management.apiDescription();
-        assertEquals("TorchServe APIs", ((Map<?, ?>) ((InlineResponse200) response).getInfo()).get("title"));
+        assertEquals("TorchServe APIs", response.getInfo().get("title"));
     }
 
     @Test

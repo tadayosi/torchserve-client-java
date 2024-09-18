@@ -1,5 +1,8 @@
 package com.github.tadayosi.torchserve.client;
 
+import com.github.tadayosi.torchserve.client.model.API;
+import com.github.tadayosi.torchserve.client.model.Response;
+
 /**
  * Inference API
  */
@@ -8,12 +11,12 @@ public interface Inference {
     /**
      * Get openapi description.
      */
-    Object apiDescription() throws Exception;
+    API apiDescription() throws Exception;
 
     /**
      * Get TorchServe status.
      */
-    Object ping() throws Exception;
+    Response ping() throws Exception;
 
     /**
      * Predictions entry point to get inference using default model version.

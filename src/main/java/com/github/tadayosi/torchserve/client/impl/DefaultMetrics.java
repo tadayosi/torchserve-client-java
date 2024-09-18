@@ -18,12 +18,12 @@ public class DefaultMetrics implements Metrics {
     }
 
     @Override
-    public Object metrics() throws Exception {
+    public String metrics() throws Exception {
         return metrics(null);
     }
 
     @Override
-    public Object metrics(String name) throws Exception {
+    public String metrics(String name) throws Exception {
         return api.metrics(name);
     }
 
