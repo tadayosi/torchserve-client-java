@@ -3,6 +3,7 @@ package com.github.tadayosi.torchserve.client.impl;
 import com.github.tadayosi.torchserve.client.Metrics;
 import com.github.tadayosi.torchserve.client.metrics.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.metrics.invoker.ApiClient;
+import com.github.tadayosi.torchserve.client.model.ApiException;
 
 public class DefaultMetrics implements Metrics {
 
@@ -18,13 +19,17 @@ public class DefaultMetrics implements Metrics {
     }
 
     @Override
-    public String metrics() throws Exception {
+    public String metrics() throws ApiException {
         return metrics(null);
     }
 
     @Override
-    public String metrics(String name) throws Exception {
-        return api.metrics(name);
+    public String metrics(String name) throws ApiException {
+        try {
+            return api.metrics(name);
+        } catch (com.github.tadayosi.torchserve.client.metrics.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
 }

@@ -3,7 +3,8 @@ package com.github.tadayosi.torchserve.client.impl;
 import com.github.tadayosi.torchserve.client.Inference;
 import com.github.tadayosi.torchserve.client.inference.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.inference.invoker.ApiClient;
-import com.github.tadayosi.torchserve.client.model.API;
+import com.github.tadayosi.torchserve.client.model.Api;
+import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.Response;
 
 public class DefaultInference implements Inference {
@@ -20,23 +21,39 @@ public class DefaultInference implements Inference {
     }
 
     @Override
-    public API apiDescription() throws Exception {
-        return API.from(api.apiDescription());
+    public Api apiDescription() throws ApiException {
+        try {
+            return Api.from(api.apiDescription());
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Response ping() throws Exception {
-        return Response.from(api.ping());
+    public Response ping() throws ApiException {
+        try {
+            return Response.from(api.ping());
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Object predictions(String modelName, Object body) throws Exception {
-        return api.predictions(body, modelName);
+    public Object predictions(String modelName, Object body) throws ApiException {
+        try {
+            return api.predictions(body, modelName);
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Object predictions(String modelName, String modelVersion, Object body) throws Exception {
-        return api.versionPredictions(body, modelName, modelVersion);
+    public Object predictions(String modelName, String modelVersion, Object body) throws ApiException {
+        try {
+            return api.versionPredictions(body, modelName, modelVersion);
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override

@@ -3,18 +3,18 @@ package com.github.tadayosi.torchserve.client.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class API {
+public class Api {
 
     private String openapi = null;
     private Map<String, String> info = new HashMap<>();
     private Map<String, Object> paths = new HashMap<>();
 
-    public API() {
+    public Api() {
     }
 
     @SuppressWarnings("unchecked")
-    public static API from(com.github.tadayosi.torchserve.client.inference.model.InlineResponse200 src) {
-        API api = new API();
+    public static Api from(com.github.tadayosi.torchserve.client.inference.model.InlineResponse200 src) {
+        Api api = new Api();
         api.setOpenapi(src.getOpenapi());
         api.setInfo((Map<String, String>) src.getInfo());
         api.setPaths((Map<String, Object>) src.getPaths());
@@ -22,8 +22,8 @@ public class API {
     }
 
     @SuppressWarnings("unchecked")
-    public static API from(com.github.tadayosi.torchserve.client.management.model.InlineResponse200 src) {
-        API api = new API();
+    public static Api from(com.github.tadayosi.torchserve.client.management.model.InlineResponse200 src) {
+        Api api = new Api();
         api.setOpenapi(src.getOpenapi());
         api.setInfo((Map<String, String>) src.getInfo());
         api.setPaths((Map<String, Object>) src.getPaths());

@@ -1,13 +1,12 @@
 package com.github.tadayosi.torchserve.client.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import com.github.tadayosi.torchserve.client.Management;
 import com.github.tadayosi.torchserve.client.management.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.management.invoker.ApiClient;
-import com.github.tadayosi.torchserve.client.model.API;
-import com.github.tadayosi.torchserve.client.model.Model;
+import com.github.tadayosi.torchserve.client.model.Api;
+import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.ModelDetail;
 import com.github.tadayosi.torchserve.client.model.ModelList;
 import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
@@ -29,81 +28,121 @@ public class DefaultManagement implements Management {
     }
 
     @Override
-    public Response registerModel(String url, RegisterModelOptions options) throws Exception {
-        return Response.from(api.registerModel(url, null,
-            options.getModelName(),
-            options.getHandler(),
-            options.getRuntime(),
-            options.getBatchSize(),
-            options.getMaxBatchDelay(),
-            options.getResponseTimeout(),
-            options.getInitialWorkers(),
-            options.getSynchronous(),
-            options.getS3SseKms()));
+    public Response registerModel(String url, RegisterModelOptions options) throws ApiException {
+        try {
+            return Response.from(api.registerModel(url, null,
+                options.getModelName(),
+                options.getHandler(),
+                options.getRuntime(),
+                options.getBatchSize(),
+                options.getMaxBatchDelay(),
+                options.getResponseTimeout(),
+                options.getInitialWorkers(),
+                options.getSynchronous(),
+                options.getS3SseKms()));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Response setAutoScale(String modelName, SetAutoScaleOptions options) throws Exception {
-        return Response.from(api.setAutoScale(modelName,
-            options.getMinWorker(),
-            options.getMaxWorker(),
-            options.getNumberGpu(),
-            options.getSynchronous(),
-            options.getTimeout()));
+    public Response setAutoScale(String modelName, SetAutoScaleOptions options) throws ApiException {
+        try {
+            return Response.from(api.setAutoScale(modelName,
+                options.getMinWorker(),
+                options.getMaxWorker(),
+                options.getNumberGpu(),
+                options.getSynchronous(),
+                options.getTimeout()));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Response setAutoScale(String modelName, String modelVersion, SetAutoScaleOptions options) throws Exception {
-        return Response.from(api.versionSetAutoScale(modelName, modelVersion,
-            options.getMinWorker(),
-            options.getMaxWorker(),
-            options.getNumberGpu(),
-            options.getSynchronous(),
-            options.getTimeout()));
+    public Response setAutoScale(String modelName, String modelVersion, SetAutoScaleOptions options) throws ApiException {
+        try {
+            return Response.from(api.versionSetAutoScale(modelName, modelVersion,
+                options.getMinWorker(),
+                options.getMaxWorker(),
+                options.getNumberGpu(),
+                options.getSynchronous(),
+                options.getTimeout()));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public List<ModelDetail> describeModel(String modelName) throws Exception {
-        return ModelDetail.from(api.describeModel(modelName));
+    public List<ModelDetail> describeModel(String modelName) throws ApiException {
+        try {
+            return ModelDetail.from(api.describeModel(modelName));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public List<ModelDetail> describeModel(String modelName, String modelVersion) throws Exception {
-        return ModelDetail.from(api.versionDescribeModel(modelName, modelVersion));
+    public List<ModelDetail> describeModel(String modelName, String modelVersion) throws ApiException {
+        try {
+            return ModelDetail.from(api.versionDescribeModel(modelName, modelVersion));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Response unregisterModel(String modelName, UnregisterModelOptions options) throws Exception {
-        return Response.from(api.unregisterModel(modelName,
-            options.getSynchronous(),
-            options.getTimeout()));
+    public Response unregisterModel(String modelName, UnregisterModelOptions options) throws ApiException {
+        try {
+            return Response.from(api.unregisterModel(modelName,
+                options.getSynchronous(),
+                options.getTimeout()));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
     public Response unregisterModel(String modelName, String modelVersion, UnregisterModelOptions options)
-        throws Exception {
-        return Response.from(api.versionUnregisterModel(modelName, modelVersion,
-            options.getSynchronous(),
-            options.getTimeout()));
+        throws ApiException {
+        try {
+            return Response.from(api.versionUnregisterModel(modelName, modelVersion,
+                options.getSynchronous(),
+                options.getTimeout()));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public ModelList listModels(Integer limit, String nextPageToken) throws Exception {
-        return ModelList.from(api.listModels(limit, nextPageToken));
+    public ModelList listModels(Integer limit, String nextPageToken) throws ApiException {
+        try {
+            return ModelList.from(api.listModels(limit, nextPageToken));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Response setDefault(String modelName, String modelVersion) throws Exception {
-        return Response.from(api.setDefault(modelName, modelVersion));
+    public Response setDefault(String modelName, String modelVersion) throws ApiException {
+        try {
+            return Response.from(api.setDefault(modelName, modelVersion));
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public API apiDescription() throws Exception {
-        return API.from(api.apiDescription());
+    public Api apiDescription() throws ApiException {
+        try {
+            return Api.from(api.apiDescription());
+        } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
+            throw new ApiException(e);
+        }
     }
 
     @Override
-    public Object token(String type) throws Exception {
+    public Object token(String type) throws ApiException {
         throw new UnsupportedOperationException("Not supported yet");
     }
 

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 
 import com.github.tadayosi.torchserve.client.impl.DefaultInference;
 import com.github.tadayosi.torchserve.client.impl.DefaultManagement;
-import com.github.tadayosi.torchserve.client.management.invoker.ApiException;
+import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
 import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
 import com.github.tadayosi.torchserve.client.model.UnregisterModelOptions;
