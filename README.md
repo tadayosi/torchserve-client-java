@@ -7,7 +7,7 @@ TorchServe Client for Java is a Java client library for [TorchServe](https://pyt
 
 ## Install
 
-1. Add the JitPack repository to your `pom.xml`:
+1. Add the [JitPack](https://jitpack.io) repository to your `pom.xml`:
 
     ```xml
     <repositories>
