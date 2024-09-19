@@ -1,5 +1,8 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS com.github.tadayosi.torchserve:torchserve-client:0.1-SNAPSHOT
+
+//JAVA 17+
+//REPOS mavencentral,jitpack=https://jitpack.io
+//DEPS com.github.tadayosi:torchserve-client-java:main-SNAPSHOT
 
 import java.nio.file.Files;
 import java.nio.file.Path;
