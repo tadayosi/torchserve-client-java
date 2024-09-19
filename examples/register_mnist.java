@@ -4,7 +4,7 @@
 //REPOS mavencentral,jitpack=https://jitpack.io
 //DEPS com.github.tadayosi:torchserve-client-java:main-SNAPSHOT
 
-import com.github.tadayosi.torchserve.client.impl.DefaultManagement;
+import com.github.tadayosi.torchserve.client.TorchServeClient;
 import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
 import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
@@ -16,10 +16,10 @@ public class register_mnist {
 
     public static void main(String... args) throws Exception {
         try {
-            var management = new DefaultManagement();
-            var response = management.registerModel(MNIST_URL, RegisterModelOptions.empty());
+            var client = TorchServeClient.newInstance();
+            var response = client.management().registerModel(MNIST_URL, RegisterModelOptions.empty());
             System.out.println("registerModel> " + response.getStatus());
-            response = management.setAutoScale(MNIST_MODEL, SetAutoScaleOptions.builder()
+            response = client.management().setAutoScale(MNIST_MODEL, SetAutoScaleOptions.builder()
                     .minWorker(1)
                     .maxWorker(1)
                     .build());
