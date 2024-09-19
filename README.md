@@ -1,6 +1,6 @@
 # TorchServe Client for Java
 
-[![Release](https://jitpack.io/v/tadayosi/torchserve-client-java.svg)](<https://jitpack.io/tadayosi/torchserve-client-java>)
+[![Release](https://jitpack.io/v/tadayosi/torchserve-client-java.svg)](<https://jitpack.io/#tadayosi/torchserve-client-java>)
 [![Test](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml/badge.svg)](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml)
 
 TorchServe Client for Java is a Java client library for [TorchServe](https://pytorch.org/serve/index.html).
