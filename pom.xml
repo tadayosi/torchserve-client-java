@@ -10,6 +10,13 @@
   <name>TorchServe Client for Java</name>
   <url>https://github.com/tadayosi/torchserve-client-java</url>
 
+  <scm>
+    <connection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</connection>
+    <developerConnection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</developerConnection>
+    <url>git@github.com:tadayosi/torchserve-client-java.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
