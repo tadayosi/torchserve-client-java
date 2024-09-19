@@ -31,3 +31,9 @@ TorchServe Client for Java is a Java client library for [TorchServe](https://pyt
 ## Usage
 
 See [examples](./examples/).
+
+## Build
+
+```console
+mvn clean install
+```
