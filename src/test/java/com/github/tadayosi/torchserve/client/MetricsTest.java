@@ -6,10 +6,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Testcontainers
-class MetricsTest extends TorchServeTestSupport {
+public class MetricsTest extends TorchServeTestSupport {
 
     @Test
-    void testMetrics() throws Exception {
+    public void testMetrics() throws Exception {
         var response = client.metrics().metrics();
         assertNotNull(response);
     }

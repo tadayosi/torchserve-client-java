@@ -13,40 +13,40 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Testcontainers
-class InferenceTest extends TorchServeTestSupport {
+public class InferenceTest extends TorchServeTestSupport {
 
     private static final String DEFAULT_MODEL = "squeezenet1_1";
     private static final String DEFAULT_MODEL_VERSION = "1.0";
     private static final String TEST_DATA = "src/test/resources/data/kitten.jpg";
 
     @Test
-    void testApiDescription() throws Exception {
+    public void testApiDescription() throws Exception {
         var response = client.inference().apiDescription();
         assertNotNull(response);
     }
 
     @Test
-    void testPing() throws Exception {
+    public void testPing() throws Exception {
         var response = client.inference().ping();
         assertEquals("Healthy", response.getStatus());
     }
 
     @Test
-    void testPredictions() throws Exception {
+    public void testPredictions() throws Exception {
         var body = Files.readAllBytes(Path.of(TEST_DATA));
         var response = client.inference().predictions(DEFAULT_MODEL, body);
         assertInstanceOf(Map.class, response);
     }
 
     @Test
-    void testPredictions_version() throws Exception {
+    public void testPredictions_version() throws Exception {
         var body = Files.readAllBytes(Path.of(TEST_DATA));
         var response = client.inference().predictions(DEFAULT_MODEL, DEFAULT_MODEL_VERSION, body);
         assertInstanceOf(Map.class, response);
     }
 
     @Test
-    void testExplanations() {
+    public void testExplanations() {
         assertThrows(UnsupportedOperationException.class, () -> client.inference().explanations(DEFAULT_MODEL));
     }
 
