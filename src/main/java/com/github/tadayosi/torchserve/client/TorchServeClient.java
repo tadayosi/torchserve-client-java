@@ -94,7 +94,6 @@ public class TorchServeClient {
         }
 
         public TorchServeClient build() {
-            System.out.println(inferencePort.get());
             DefaultInference inference = inferenceAddress.map(DefaultInference::new)
                 .or(() -> inferencePort.map(DefaultInference::new))
                 .orElse(new DefaultInference());
