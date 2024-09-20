@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @Testcontainers
-public class ManagementTest extends TorchServeTestSupport {
+class ManagementTest extends TorchServeTestSupport {
 
     private static final String DEFAULT_MODEL = "squeezenet1_1";
     private static final String DEFAULT_MODEL_VERSION = "1.0";
@@ -31,7 +31,7 @@ public class ManagementTest extends TorchServeTestSupport {
     private static final String TEST_DATA_DIR = "src/test/resources/data";
 
     @Test
-    public void testRegisterModel() throws Exception {
+    void testRegisterModel() throws Exception {
         var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
         try {
             var response = client.management().registerModel(url, RegisterModelOptions.empty());
@@ -46,7 +46,7 @@ public class ManagementTest extends TorchServeTestSupport {
     class AfterRegisteringModel {
 
         @BeforeEach
-        public void registerModel() throws Exception {
+        void registerModel() throws Exception {
             var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
             try {
                 client.management().registerModel(url, RegisterModelOptions.empty());
@@ -56,13 +56,13 @@ public class ManagementTest extends TorchServeTestSupport {
         }
 
         @Test
-        public void testUnregisterModel() throws Exception {
+        void testUnregisterModel() throws Exception {
             var response = client.management().unregisterModel(ADDED_MODEL, UnregisterModelOptions.empty());
             assertTrue(response.getStatus().contains("unregistered"));
         }
 
         @Test
-        public void testUnregisterModel_version() throws Exception {
+        void testUnregisterModel_version() throws Exception {
             var response = client.management().unregisterModel(ADDED_MODEL, ADDED_MODEL_VERSION, UnregisterModelOptions.empty());
             assertTrue(response.getStatus().contains("unregistered"));
         }
@@ -71,12 +71,12 @@ public class ManagementTest extends TorchServeTestSupport {
         class BeforeUnregisteringModel {
 
             @AfterEach
-            public void unregisterModel() throws Exception {
+            void unregisterModel() throws Exception {
                 client.management().unregisterModel(ADDED_MODEL, UnregisterModelOptions.empty());
             }
 
             @Test
-            public void testSetAutoScale() throws Exception {
+            void testSetAutoScale() throws Exception {
                 var response1 = client.management().setAutoScale(ADDED_MODEL,
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
@@ -92,7 +92,7 @@ public class ManagementTest extends TorchServeTestSupport {
             }
 
             @Test
-            public void testSetAutoScale_version() throws Exception {
+            void testSetAutoScale_version() throws Exception {
                 var response1 = client.management().setAutoScale(ADDED_MODEL, ADDED_MODEL_VERSION,
                     SetAutoScaleOptions.builder()
                         .minWorker(1)
@@ -109,14 +109,14 @@ public class ManagementTest extends TorchServeTestSupport {
     }
 
     @Test
-    public void testDescribeModel() throws Exception {
+    void testDescribeModel() throws Exception {
         var response = client.management().describeModel(DEFAULT_MODEL);
         assertEquals(1, response.size());
         assertEquals("squeezenet1_1", response.get(0).getModelName());
     }
 
     @Test
-    public void testDescribeModel_version() throws Exception {
+    void testDescribeModel_version() throws Exception {
         var response = client.management().describeModel(DEFAULT_MODEL, DEFAULT_MODEL_VERSION);
         assertEquals(1, response.size());
         assertEquals("squeezenet1_1", response.get(0).getModelName());
@@ -124,7 +124,7 @@ public class ManagementTest extends TorchServeTestSupport {
     }
 
     @Test
-    public void testListModels() throws Exception {
+    void testListModels() throws Exception {
         int limit = 10;
         String nextPageToken = null;
         var response = client.management().listModels(limit, nextPageToken);
@@ -134,19 +134,19 @@ public class ManagementTest extends TorchServeTestSupport {
     }
 
     @Test
-    public void testSetDefault() throws Exception {
+    void testSetDefault() throws Exception {
         var response = client.management().setDefault(DEFAULT_MODEL, DEFAULT_MODEL_VERSION);
         assertTrue(response.getStatus().contains("Default vesion succsesfully updated"));
     }
 
     @Test
-    public void testApiDescription() throws Exception {
+    void testApiDescription() throws Exception {
         var response = client.management().apiDescription();
         assertEquals("TorchServe APIs", response.getInfo().get("title"));
     }
 
     @Test
-    public void testToken() throws Exception {
+    void testToken() throws Exception {
         assertThrows(UnsupportedOperationException.class, () -> client.management().token("management"));
     }
 
