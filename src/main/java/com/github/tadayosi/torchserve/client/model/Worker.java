@@ -16,6 +16,10 @@ public class Worker {
     }
 
     public static Worker from(ModelsmodelNameWorkers src) {
+        if (src == null) {
+            return null;
+        }
+
         Worker worker = new Worker();
         worker.setId(src.getId());
         worker.setStartTime(src.getStartTime());
@@ -58,6 +62,16 @@ public class Worker {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {" +
+            " id: " + id + "," +
+            " startTime: " + startTime + "," +
+            " gpu: " + gpu + "," +
+            " status: " + status + " " +
+            "}";
     }
 
     public enum Status {

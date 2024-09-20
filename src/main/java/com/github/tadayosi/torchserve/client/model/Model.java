@@ -11,8 +11,8 @@ public class Model {
 
     private static final Logger LOG = LoggerFactory.getLogger(Model.class);
 
-    private String modelName = null;
-    private String modelUrl = null;
+    protected String modelName = null;
+    protected String modelUrl = null;
 
     public Model() {
     }
@@ -48,5 +48,13 @@ public class Model {
 
     public void setModelUrl(String modelUrl) {
         this.modelUrl = modelUrl;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {\n" +
+            "    modelName: " + modelName + "\n" +
+            "    modelUrl: " + modelUrl + "\n" +
+            "}";
     }
 }

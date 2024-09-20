@@ -53,4 +53,13 @@ public class Api {
     public void setPaths(Map<String, Object> paths) {
         this.paths = paths;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {\n" +
+            "    openapi: " + openapi + "\n" +
+            "    info: " + info + "\n" +
+            "    paths: " + paths + "\n" +
+            "}";
+    }
 }

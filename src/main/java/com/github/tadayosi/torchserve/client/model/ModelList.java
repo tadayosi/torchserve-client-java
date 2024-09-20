@@ -35,4 +35,12 @@ public class ModelList {
     public void setModels(List<Model> models) {
         this.models = models;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {\n" +
+            "    nextPageToken: " + nextPageToken + "\n" +
+            "    models: " + models + "\n" +
+            "}";
+    }
 }

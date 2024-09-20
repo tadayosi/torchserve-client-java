@@ -110,4 +110,21 @@ public class ModelDetail extends Model {
     public void setJobQueueStatus(JobQueueStatus jobQueueStatus) {
         this.jobQueueStatus = jobQueueStatus;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {\n" +
+            "    modelName: " + modelName + "\n" +
+            "    modelVersion: " + modelVersion + "\n" +
+            "    modelUrl: " + modelUrl + "\n" +
+            "    minWorkers: " + minWorkers + "\n" +
+            "    maxWorkers: " + maxWorkers + "\n" +
+            "    batchSize: " + batchSize + "\n" +
+            "    maxBatchDelay: " + maxBatchDelay + "\n" +
+            "    status: " + status + "\n" +
+            "    workers: " + workers + "\n" +
+            "    metrics: " + metrics + "\n" +
+            "    jobQueueStatus: " + jobQueueStatus + "\n" +
+            "}";
+    }
 }

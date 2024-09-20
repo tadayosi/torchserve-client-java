@@ -11,6 +11,10 @@ public class JobQueueStatus {
     }
 
     public static JobQueueStatus from(ModelsmodelNameJobQueueStatus src) {
+        if (src == null) {
+            return null;
+        }
+
         JobQueueStatus status = new JobQueueStatus();
         status.setRemainingCapacity(src.getRemainingCapacity());
         status.setPendingRequests(src.getPendingRequests());
@@ -31,5 +35,13 @@ public class JobQueueStatus {
 
     public void setPendingRequests(Integer pendingRequests) {
         this.pendingRequests = pendingRequests;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " {" +
+            " remainingCapacity: " + remainingCapacity + "," +
+            " pendingRequests: " + pendingRequests + " " +
+            "}";
     }
 }
