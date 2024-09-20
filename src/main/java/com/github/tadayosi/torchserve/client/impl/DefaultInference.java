@@ -16,8 +16,16 @@ public class DefaultInference implements Inference {
     }
 
     public DefaultInference(int port) {
-        ApiClient client = new ApiClient().setBasePath("http://localhost:" + port);
+        this("http://localhost:" + port);
+    }
+
+    public DefaultInference(String address) {
+        ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
+    }
+
+    public void setAuthToken(String token) {
+        api.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
     }
 
     @Override

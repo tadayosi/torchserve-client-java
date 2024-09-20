@@ -23,8 +23,16 @@ public class DefaultManagement implements Management {
     }
 
     public DefaultManagement(int port) {
-        ApiClient client = new ApiClient().setBasePath("http://localhost:" + port);
+        this("http://localhost:" + port);
+    }
+
+    public DefaultManagement(String address) {
+        ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
+    }
+
+    public void setAuthToken(String token) {
+        api.getApiClient().addDefaultHeader("Authorization", "Bearer " + token);
     }
 
     @Override
@@ -145,5 +153,4 @@ public class DefaultManagement implements Management {
     public Object token(String type) throws ApiException {
         throw new UnsupportedOperationException("Not supported yet");
     }
-
 }

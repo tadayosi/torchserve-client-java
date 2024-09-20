@@ -14,7 +14,11 @@ public class DefaultMetrics implements Metrics {
     }
 
     public DefaultMetrics(int port) {
-        ApiClient client = new ApiClient().setBasePath("http://localhost:" + port);
+        this("http://localhost:" + port);
+    }
+
+    public DefaultMetrics(String address) {
+        ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
     }
 

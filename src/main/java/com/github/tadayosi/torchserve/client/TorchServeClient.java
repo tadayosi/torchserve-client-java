@@ -1,5 +1,7 @@
 package com.github.tadayosi.torchserve.client;
 
+import java.util.Optional;
+
 import com.github.tadayosi.torchserve.client.impl.DefaultInference;
 import com.github.tadayosi.torchserve.client.impl.DefaultManagement;
 import com.github.tadayosi.torchserve.client.impl.DefaultMetrics;
@@ -42,29 +44,73 @@ public class TorchServeClient {
 
     public static class Builder {
 
-        private Integer inferencePort;
-        private Integer managementPort;
-        private Integer metricsPort;
+        private final Configuration configuration = Configuration.load();
+
+        private Optional<String> inferenceKey = configuration.getInferenceKey();
+        private Optional<String> inferenceAddress = configuration.getInferenceAddress();
+        private Optional<Integer> inferencePort = configuration.getInferencePort();
+
+        private Optional<String> managementKey = configuration.getManagementKey();
+        private Optional<String> managementAddress = configuration.getManagementAddress();
+        private Optional<Integer> managementPort = configuration.getManagementPort();
+
+        private Optional<String> metricsAddress = configuration.getMetricsAddress();
+        private Optional<Integer> metricsPort = configuration.getMetricsPort();
+
+        public Builder inferenceKey(String key) {
+            this.inferenceKey = Optional.of(key);
+            return this;
+        }
+
+        public Builder inferenceAddress(String address) {
+            this.inferenceAddress = Optional.of(address);
+            return this;
+        }
 
         public Builder inferencePort(int port) {
-            this.inferencePort = port;
+            this.inferencePort = Optional.of(port);
+            return this;
+        }
+
+        public Builder managementKey(String key) {
+            this.managementKey = Optional.of(key);
+            return this;
+        }
+
+        public Builder managementAddress(String address) {
+            this.managementAddress = Optional.of(address);
             return this;
         }
 
         public Builder managementPort(int port) {
-            this.managementPort = port;
+            this.managementPort = Optional.of(port);
             return this;
         }
 
-        public Builder metricsPort(Integer metricsPort) {
-            this.metricsPort = metricsPort;
+        public Builder metricsAddress(String address) {
+            this.metricsAddress = Optional.of(address);
+            return this;
+        }
+
+        public Builder metricsPort(Integer port) {
+            this.metricsPort = Optional.of(port);
             return this;
         }
 
         public TorchServeClient build() {
-            Inference inference = inferencePort == null ? new DefaultInference() : new DefaultInference(inferencePort);
-            Management management = managementPort == null ? new DefaultManagement() : new DefaultManagement(managementPort);
-            Metrics metrics = metricsPort == null ? new DefaultMetrics() : new DefaultMetrics(metricsPort);
+            DefaultInference inference = inferenceAddress.map(DefaultInference::new)
+                .orElse(inferencePort.map(DefaultInference::new)
+                    .orElse(new DefaultInference()));
+            inferenceKey.ifPresent(inference::setAuthToken);
+
+            DefaultManagement management = managementAddress.map(DefaultManagement::new)
+                .orElse(managementPort.map(DefaultManagement::new)
+                    .orElse(new DefaultManagement()));
+            managementKey.ifPresent(management::setAuthToken);
+
+            DefaultMetrics metrics = metricsAddress.map(DefaultMetrics::new)
+                .orElse(metricsPort.map(DefaultMetrics::new)
+                    .orElse(new DefaultMetrics()));
             return new TorchServeClient(inference, management, metrics);
         }
     }
