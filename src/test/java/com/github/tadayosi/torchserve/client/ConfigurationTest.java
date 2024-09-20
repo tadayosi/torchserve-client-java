@@ -1,11 +1,25 @@
 package com.github.tadayosi.torchserve.client;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ConfigurationTest {
+
+    @AfterEach
+    void cleanSystemProperties() {
+        System.clearProperty("tsc4j.inference.key");
+        System.clearProperty("tsc4j.inference.address");
+        System.clearProperty("tsc4j.inference.port");
+        System.clearProperty("tsc4j.management.key");
+        System.clearProperty("tsc4j.management.address");
+        System.clearProperty("tsc4j.management.port");
+        System.clearProperty("tsc4j.metrics.address");
+        System.clearProperty("tsc4j.metrics.port");
+    }
 
     @Test
     void testLoad() {
