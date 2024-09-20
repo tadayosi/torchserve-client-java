@@ -4,8 +4,12 @@ import com.github.tadayosi.torchserve.client.Metrics;
 import com.github.tadayosi.torchserve.client.metrics.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.metrics.invoker.ApiClient;
 import com.github.tadayosi.torchserve.client.model.ApiException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultMetrics implements Metrics {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultMetrics.class);
 
     private final DefaultApi api;
 
@@ -20,6 +24,7 @@ public class DefaultMetrics implements Metrics {
     public DefaultMetrics(String address) {
         ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
+        LOG.info("Metrics API address: {}", address);
     }
 
     @Override

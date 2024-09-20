@@ -12,10 +12,6 @@ public class TorchServeClient {
     private final Management management;
     private final Metrics metrics;
 
-    private TorchServeClient() {
-        this(new DefaultInference(), new DefaultManagement(), new DefaultMetrics());
-    }
-
     private TorchServeClient(Inference inference, Management management, Metrics metrics) {
         this.inference = inference;
         this.management = management;
@@ -98,19 +94,20 @@ public class TorchServeClient {
         }
 
         public TorchServeClient build() {
+            System.out.println(inferencePort.get());
             DefaultInference inference = inferenceAddress.map(DefaultInference::new)
-                .orElse(inferencePort.map(DefaultInference::new)
-                    .orElse(new DefaultInference()));
+                .or(() -> inferencePort.map(DefaultInference::new))
+                .orElse(new DefaultInference());
             inferenceKey.ifPresent(inference::setAuthToken);
 
             DefaultManagement management = managementAddress.map(DefaultManagement::new)
-                .orElse(managementPort.map(DefaultManagement::new)
-                    .orElse(new DefaultManagement()));
+                .or(() -> managementPort.map(DefaultManagement::new))
+                .orElse(new DefaultManagement());
             managementKey.ifPresent(management::setAuthToken);
 
             DefaultMetrics metrics = metricsAddress.map(DefaultMetrics::new)
-                .orElse(metricsPort.map(DefaultMetrics::new)
-                    .orElse(new DefaultMetrics()));
+                .or(() -> metricsPort.map(DefaultMetrics::new))
+                .orElse(new DefaultMetrics());
             return new TorchServeClient(inference, management, metrics);
         }
     }

@@ -13,8 +13,12 @@ import com.github.tadayosi.torchserve.client.model.RegisterModelOptions;
 import com.github.tadayosi.torchserve.client.model.Response;
 import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
 import com.github.tadayosi.torchserve.client.model.UnregisterModelOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultManagement implements Management {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultManagement.class);
 
     private final DefaultApi api;
 
@@ -29,6 +33,7 @@ public class DefaultManagement implements Management {
     public DefaultManagement(String address) {
         ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
+        LOG.info("Management API address: {}", address);
     }
 
     public void setAuthToken(String token) {

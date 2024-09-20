@@ -1,6 +1,5 @@
 package com.github.tadayosi.torchserve.client;
 
-import com.github.tadayosi.torchserve.client.model.ApiException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

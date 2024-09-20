@@ -25,16 +25,16 @@ public class Configuration {
     public static final String METRICS_ADDRESS = "metrics.address";
     public static final String METRICS_PORT = "metrics.port";
 
-    private Optional<String> inferenceKey;
-    private Optional<String> inferenceAddress;
-    private Optional<Integer> inferencePort;
+    private final Optional<String> inferenceKey;
+    private final Optional<String> inferenceAddress;
+    private final Optional<Integer> inferencePort;
 
-    private Optional<String> managementKey;
-    private Optional<String> managementAddress;
-    private Optional<Integer> managementPort;
+    private final Optional<String> managementKey;
+    private final Optional<String> managementAddress;
+    private final Optional<Integer> managementPort;
 
-    private Optional<String> metricsAddress;
-    private Optional<Integer> metricsPort;
+    private final Optional<String> metricsAddress;
+    private final Optional<Integer> metricsPort;
 
     private Configuration() {
         Properties props = loadProperties();
@@ -42,9 +42,11 @@ public class Configuration {
         this.inferenceKey = loadProperty(INFERENCE_KEY, props);
         this.inferenceAddress = loadProperty(INFERENCE_ADDRESS, props);
         this.inferencePort = loadProperty(INFERENCE_PORT, props).map(Integer::parseInt);
+
         this.managementKey = loadProperty(MANAGEMENT_KEY, props);
         this.managementAddress = loadProperty(MANAGEMENT_ADDRESS, props);
         this.managementPort = loadProperty(MANAGEMENT_PORT, props).map(Integer::parseInt);
+
         this.metricsAddress = loadProperty(METRICS_ADDRESS, props);
         this.metricsPort = loadProperty(METRICS_PORT, props).map(Integer::parseInt);
     }
@@ -66,9 +68,11 @@ public class Configuration {
      */
     static Optional<String> loadProperty(String key, Properties properties) {
         String tsc4jKey = TSC4J_PREFIX + key;
-        return Optional.ofNullable(System.getProperty(tsc4jKey))
+        Optional<String> value = Optional.ofNullable(System.getProperty(tsc4jKey))
             .or(() -> Optional.ofNullable(System.getenv(tsc4jKey.toUpperCase().replace(".", "_"))))
             .or(() -> Optional.ofNullable(properties.getProperty(key)));
+        LOG.debug("Loaded property {}: {}", key, value.orElse(null));
+        return value;
     }
 
     public static Configuration load() {

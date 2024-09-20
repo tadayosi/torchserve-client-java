@@ -6,8 +6,12 @@ import com.github.tadayosi.torchserve.client.inference.invoker.ApiClient;
 import com.github.tadayosi.torchserve.client.model.Api;
 import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultInference implements Inference {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultInference.class);
 
     private final DefaultApi api;
 
@@ -22,6 +26,7 @@ public class DefaultInference implements Inference {
     public DefaultInference(String address) {
         ApiClient client = new ApiClient().setBasePath(address);
         this.api = new DefaultApi(client);
+        LOG.info("Inference API address: {}", address);
     }
 
     public void setAuthToken(String token) {
