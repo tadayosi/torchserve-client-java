@@ -29,7 +29,7 @@ public class Response {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + " {" +
+        return getClass().getSimpleName() + " {\n" +
             "    status: " + status + "\n" +
             "}";
     }

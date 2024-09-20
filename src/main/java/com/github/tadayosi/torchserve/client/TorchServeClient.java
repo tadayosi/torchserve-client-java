@@ -23,7 +23,7 @@ public class TorchServeClient {
     }
 
     public static TorchServeClient newInstance() {
-        return new TorchServeClient();
+        return builder().build();
     }
 
     public static Builder builder() {
