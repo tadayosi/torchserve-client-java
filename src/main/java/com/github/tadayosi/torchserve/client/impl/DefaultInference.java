@@ -54,7 +54,8 @@ public class DefaultInference implements Inference {
     @Override
     public Object predictions(String modelName, Object body) throws ApiException {
         try {
-            return api.predictions(body, modelName);
+            // /predictions/{model_name}
+            return api.predictions_1(body, modelName);
         } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
             throw new ApiException(e);
         }
