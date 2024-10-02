@@ -136,7 +136,7 @@ class ManagementTest extends TorchServeTestSupport {
     @Test
     void testSetDefault() throws Exception {
         var response = client.management().setDefault(DEFAULT_MODEL, DEFAULT_MODEL_VERSION);
-        assertTrue(response.getStatus().contains("Default vesion succsesfully updated"));
+        assertTrue(response.getStatus().contains("Default version successfully updated"));
     }
 
     @Test

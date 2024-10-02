@@ -9,7 +9,7 @@ import org.testcontainers.utility.MountableFile;
 
 class TorchServeTestSupport {
 
-    private static final String IMAGE_NAME = "aarch64".equals(System.getProperty("os.arch")) ? "tadayosi/torchserve" : "pytorch/torchserve";
+    private static final String IMAGE_NAME = "pytorch/torchserve";
 
     @Container
     static GenericContainer<?> torchServe = new GenericContainer<>(DockerImageName.parse(IMAGE_NAME))
