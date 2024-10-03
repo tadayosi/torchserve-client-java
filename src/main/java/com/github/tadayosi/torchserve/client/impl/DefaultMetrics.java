@@ -36,8 +36,8 @@ public class DefaultMetrics implements Metrics {
     public String metrics(String name) throws ApiException {
         try {
             return api.metrics(name);
-        } catch (Exception e) {
-            throw new ApiException("Operation metrics failed", e);
+        } catch (com.github.tadayosi.torchserve.client.metrics.invoker.ApiException e) {
+            throw new ApiException(e);
         }
     }
 

@@ -23,6 +23,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
 
+    <httpclient-version>5.4</httpclient-version>
     <jackson-version>2.17.2</jackson-version>
     <jackson-databind-version>2.17.2</jackson-databind-version>
     <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
@@ -30,7 +31,6 @@
     <junit-jupiter-version>5.11.1</junit-jupiter-version>
     <log4j2-version>2.24.0</log4j2-version>
     <slf4j-version>1.7.36</slf4j-version>
-    <spring-version>6.1.13</spring-version>
     <testcontainers-version>1.20.2</testcontainers-version>
 
     <build-helper-maven-plugin-version>3.6.0</build-helper-maven-plugin-version>
@@ -60,16 +60,11 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- HTTP client: Spring RestTemplate -->
+    <!-- HTTP client: apache client -->
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring-version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring-version}</version>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${httpclient-version}</version>
     </dependency>
 
     <!-- JSON processing: jackson -->
@@ -94,20 +89,19 @@
       <version>${jackson-version}</version>
     </dependency>
     <dependency>
-      <groupId>org.openapitools</groupId>
-      <artifactId>jackson-databind-nullable</artifactId>
-      <version>${jackson-databind-nullable-version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${jackson-version}</version>
     </dependency>
     <dependency>
+      <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>${jackson-databind-nullable-version}</version>
+    </dependency>
+    <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
       <version>${jakarta-annotation-api-version}</version>
-      <scope>provided</scope>
     </dependency>
 
     <!-- Logging -->
@@ -162,7 +156,7 @@
               <invokerPackage>com.github.tadayosi.torchserve.client.inference.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
-                <library>resttemplate</library>
+                <library>apache-httpclient</library>
               </configOptions>
               <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>
@@ -182,7 +176,7 @@
               <invokerPackage>com.github.tadayosi.torchserve.client.management.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
-                <library>resttemplate</library>
+                <library>apache-httpclient</library>
               </configOptions>
               <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>
@@ -202,7 +196,7 @@
               <invokerPackage>com.github.tadayosi.torchserve.client.metrics.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
-                <library>resttemplate</library>
+                <library>apache-httpclient</library>
               </configOptions>
               <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>

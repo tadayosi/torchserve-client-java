@@ -87,8 +87,8 @@ class ManagementTest extends TorchServeTestSupport {
                 var inference = new DefaultInference(torchServe.getMappedPort(8080));
                 var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "0.png"));
                 var response2 = inference.predictions(ADDED_MODEL, body);
-                assertInstanceOf(Double.class, response2);
-                assertEquals(0.0, (Double) response2, 0.001);
+                assertInstanceOf(Integer.class, response2);
+                assertEquals(0, (int) response2);
             }
 
             @Test
@@ -102,8 +102,8 @@ class ManagementTest extends TorchServeTestSupport {
                 // Testing inference with MNIST V2
                 var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "1.png"));
                 var response2 = client.inference().predictions(ADDED_MODEL, body);
-                assertInstanceOf(Double.class, response2);
-                assertEquals(1.0, (Double) response2, 0.001);
+                assertInstanceOf(Integer.class, response2);
+                assertEquals(1, (int) response2);
             }
         }
     }

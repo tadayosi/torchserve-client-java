@@ -1,5 +1,7 @@
 package com.github.tadayosi.torchserve.client.impl;
 
+import java.util.Map;
+
 import com.github.tadayosi.torchserve.client.Inference;
 import com.github.tadayosi.torchserve.client.inference.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.inference.invoker.ApiClient;
@@ -36,9 +38,10 @@ public class DefaultInference implements Inference {
     @Override
     public Api apiDescription() throws ApiException {
         try {
-            return Api.from(api.apiDescription());
-        } catch (Exception e) {
-            throw new ApiException("Operation apiDescription failed", e);
+            // Workaround for HTTPClient 5.4 requiring content-type for OPTIONS requests
+            return Api.from(api.apiDescription(Map.of("Content-Type", "application/json")));
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
         }
     }
 
@@ -46,8 +49,8 @@ public class DefaultInference implements Inference {
     public Response ping() throws ApiException {
         try {
             return Response.from(api.ping());
-        } catch (Exception e) {
-            throw new ApiException("Operation ping failed", e);
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
         }
     }
 
@@ -56,8 +59,8 @@ public class DefaultInference implements Inference {
         try {
             // /predictions/{model_name}
             return api.predictions_1(modelName, body);
-        } catch (Exception e) {
-            throw new ApiException("Operation predictions failed", e);
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
         }
     }
 
@@ -65,8 +68,8 @@ public class DefaultInference implements Inference {
     public Object predictions(String modelName, String modelVersion, Object body) throws ApiException {
         try {
             return api.versionPredictions(modelName, modelVersion, body);
-        } catch (Exception e) {
-            throw new ApiException("Operation predictions failed", e);
+        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
+            throw new ApiException(e);
         }
     }
 
