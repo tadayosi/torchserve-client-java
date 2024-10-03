@@ -7,13 +7,13 @@ public class Response {
     public Response() {
     }
 
-    public static Response from(com.github.tadayosi.torchserve.client.inference.model.InlineResponse2001 src) {
+    public static Response from(com.github.tadayosi.torchserve.client.inference.model.Ping200Response src) {
         Response response = new Response();
         response.setStatus(src.getStatus());
         return response;
     }
 
-    public static Response from(com.github.tadayosi.torchserve.client.management.model.InlineResponse2002 src) {
+    public static Response from(com.github.tadayosi.torchserve.client.management.model.RegisterModel200Response src) {
         Response response = new Response();
         response.setStatus(src.getStatus());
         return response;

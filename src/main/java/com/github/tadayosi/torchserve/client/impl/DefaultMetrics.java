@@ -6,7 +6,6 @@ import com.github.tadayosi.torchserve.client.metrics.invoker.ApiClient;
 import com.github.tadayosi.torchserve.client.model.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
 
 public class DefaultMetrics implements Metrics {
 
@@ -37,7 +36,7 @@ public class DefaultMetrics implements Metrics {
     public String metrics(String name) throws ApiException {
         try {
             return api.metrics(name);
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation metrics failed", e);
         }
     }

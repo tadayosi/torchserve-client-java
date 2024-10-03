@@ -3,7 +3,7 @@ package com.github.tadayosi.torchserve.client.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.tadayosi.torchserve.client.management.model.InlineResponse2001;
+import com.github.tadayosi.torchserve.client.management.model.ListModels200Response;
 
 public class ModelList {
 
@@ -13,10 +13,10 @@ public class ModelList {
     public ModelList() {
     }
 
-    public static ModelList from(InlineResponse2001 inlineResponse2001) {
+    public static ModelList from(ListModels200Response inlineResponse2001) {
         ModelList modelList = new ModelList();
         modelList.setNextPageToken(inlineResponse2001.getNextPageToken());
-        modelList.setModels(Model.fromMap(inlineResponse2001.getModels()));
+        modelList.setModels(Model.from(inlineResponse2001.getModels()));
         return modelList;
     }
 

@@ -2,7 +2,8 @@
 
 //JAVA 17+
 //REPOS mavencentral,jitpack=https://jitpack.io
-//DEPS com.github.tadayosi:torchserve-client-java:main-SNAPSHOT
+///DEPS com.github.tadayosi:torchserve-client-java:main-SNAPSHOT
+//DEPS com.github.tadayosi.torchserve:torchserve-client:0.3-SNAPSHOT
 //DEPS org.slf4j:slf4j-simple:1.7.36
 
 import java.nio.file.Files;

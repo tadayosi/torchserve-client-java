@@ -15,7 +15,6 @@ import com.github.tadayosi.torchserve.client.model.SetAutoScaleOptions;
 import com.github.tadayosi.torchserve.client.model.UnregisterModelOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
 
 public class DefaultManagement implements Management {
 
@@ -44,7 +43,7 @@ public class DefaultManagement implements Management {
     @Override
     public Response registerModel(String url, RegisterModelOptions options) throws ApiException {
         try {
-            return Response.from(api.registerModel(url, null,
+            return Response.from(api.registerModel(url,
                 options.getModelName(),
                 options.getHandler(),
                 options.getRuntime(),
@@ -53,8 +52,9 @@ public class DefaultManagement implements Management {
                 options.getResponseTimeout(),
                 options.getInitialWorkers(),
                 options.getSynchronous(),
-                options.getS3SseKms()));
-        } catch (RestClientException e) {
+                options.getS3SseKms(),
+                null));
+        } catch (Exception e) {
             throw new ApiException("Operation registerModel failed", e);
         }
     }
@@ -68,7 +68,7 @@ public class DefaultManagement implements Management {
                 options.getNumberGpu(),
                 options.getSynchronous(),
                 options.getTimeout()));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation setAutoScale failed", e);
         }
     }
@@ -82,7 +82,7 @@ public class DefaultManagement implements Management {
                 options.getNumberGpu(),
                 options.getSynchronous(),
                 options.getTimeout()));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation setAutoScale failed", e);
         }
     }
@@ -90,8 +90,8 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName) throws ApiException {
         try {
-            return ModelDetail.from(api.describeModel(modelName));
-        } catch (RestClientException e) {
+            return ModelDetail.fromList(api.describeModel(modelName));
+        } catch (Exception e) {
             throw new ApiException("Operation describeModel failed", e);
         }
     }
@@ -99,8 +99,8 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName, String modelVersion) throws ApiException {
         try {
-            return ModelDetail.from(api.versionDescribeModel(modelName, modelVersion));
-        } catch (RestClientException e) {
+            return ModelDetail.fromList(api.versionDescribeModel(modelName, modelVersion));
+        } catch (Exception e) {
             throw new ApiException("Operation describeModel failed", e);
         }
     }
@@ -111,7 +111,7 @@ public class DefaultManagement implements Management {
             return Response.from(api.unregisterModel(modelName,
                 options.getSynchronous(),
                 options.getTimeout()));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation unregisterModel failed", e);
         }
     }
@@ -123,7 +123,7 @@ public class DefaultManagement implements Management {
             return Response.from(api.versionUnregisterModel(modelName, modelVersion,
                 options.getSynchronous(),
                 options.getTimeout()));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation unregisterModel failed", e);
         }
     }
@@ -132,7 +132,7 @@ public class DefaultManagement implements Management {
     public ModelList listModels(Integer limit, String nextPageToken) throws ApiException {
         try {
             return ModelList.from(api.listModels(limit, nextPageToken));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation listModels failed", e);
         }
     }
@@ -141,7 +141,7 @@ public class DefaultManagement implements Management {
     public Response setDefault(String modelName, String modelVersion) throws ApiException {
         try {
             return Response.from(api.setDefault(modelName, modelVersion));
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation setDefault failed", e);
         }
     }
@@ -150,7 +150,7 @@ public class DefaultManagement implements Management {
     public Api apiDescription() throws ApiException {
         try {
             return Api.from(api.apiDescription());
-        } catch (RestClientException e) {
+        } catch (Exception e) {
             throw new ApiException("Operation apiDescription failed", e);
         }
     }

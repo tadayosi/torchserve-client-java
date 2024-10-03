@@ -1,6 +1,6 @@
 package com.github.tadayosi.torchserve.client.model;
 
-import com.github.tadayosi.torchserve.client.management.model.ModelsmodelNameJobQueueStatus;
+import com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInnerJobQueueStatus;
 
 public class JobQueueStatus {
 
@@ -10,7 +10,7 @@ public class JobQueueStatus {
     public JobQueueStatus() {
     }
 
-    public static JobQueueStatus from(ModelsmodelNameJobQueueStatus src) {
+    public static JobQueueStatus from(DescribeModel200ResponseInnerJobQueueStatus src) {
         if (src == null) {
             return null;
         }
