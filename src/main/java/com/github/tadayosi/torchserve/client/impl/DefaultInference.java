@@ -8,6 +8,7 @@ import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 
 public class DefaultInference implements Inference {
 
@@ -37,8 +38,8 @@ public class DefaultInference implements Inference {
     public Api apiDescription() throws ApiException {
         try {
             return Api.from(api.apiDescription());
-        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
-            throw new ApiException(e);
+        } catch (RestClientException e) {
+            throw new ApiException("Operation apiDescription failed", e);
         }
     }
 
@@ -46,8 +47,8 @@ public class DefaultInference implements Inference {
     public Response ping() throws ApiException {
         try {
             return Response.from(api.ping());
-        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
-            throw new ApiException(e);
+        } catch (RestClientException e) {
+            throw new ApiException("Operation ping failed", e);
         }
     }
 
@@ -56,8 +57,8 @@ public class DefaultInference implements Inference {
         try {
             // /predictions/{model_name}
             return api.predictions_1(body, modelName);
-        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
-            throw new ApiException(e);
+        } catch (RestClientException e) {
+            throw new ApiException("Operation predictions failed", e);
         }
     }
 
@@ -65,8 +66,8 @@ public class DefaultInference implements Inference {
     public Object predictions(String modelName, String modelVersion, Object body) throws ApiException {
         try {
             return api.versionPredictions(body, modelName, modelVersion);
-        } catch (com.github.tadayosi.torchserve.client.inference.invoker.ApiException e) {
-            throw new ApiException(e);
+        } catch (RestClientException e) {
+            throw new ApiException("Operation predictions failed", e);
         }
     }
 

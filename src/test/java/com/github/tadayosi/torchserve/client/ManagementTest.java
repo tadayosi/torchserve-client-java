@@ -31,14 +31,14 @@ class ManagementTest extends TorchServeTestSupport {
     private static final String TEST_DATA_DIR = "src/test/resources/data";
 
     @Test
-    void testRegisterModel() throws Exception {
+    void testRegisterModel() {
         var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
         try {
             var response = client.management().registerModel(url, RegisterModelOptions.empty());
             assertTrue(response.getStatus().contains("registered"));
         } catch (ApiException e) {
             e.printStackTrace();
-            fail(e.getResponseBody());
+            fail(e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ class ManagementTest extends TorchServeTestSupport {
     class AfterRegisteringModel {
 
         @BeforeEach
-        void registerModel() throws Exception {
+        void registerModel() {
             var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
             try {
                 client.management().registerModel(url, RegisterModelOptions.empty());
@@ -125,9 +125,7 @@ class ManagementTest extends TorchServeTestSupport {
 
     @Test
     void testListModels() throws Exception {
-        int limit = 10;
-        String nextPageToken = null;
-        var response = client.management().listModels(limit, nextPageToken);
+        var response = client.management().listModels(10, null);
         var models = response.getModels();
         assertFalse(models.isEmpty());
         assertEquals(DEFAULT_MODEL, models.get(0).getModelName());
@@ -146,7 +144,7 @@ class ManagementTest extends TorchServeTestSupport {
     }
 
     @Test
-    void testToken() throws Exception {
+    void testToken() {
         assertThrows(UnsupportedOperationException.class, () -> client.management().token("management"));
     }
 

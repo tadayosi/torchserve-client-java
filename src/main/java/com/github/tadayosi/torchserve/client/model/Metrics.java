@@ -1,7 +1,6 @@
 package com.github.tadayosi.torchserve.client.model;
 
 import com.github.tadayosi.torchserve.client.management.model.ModelsmodelNameMetrics;
-import com.google.gson.annotations.SerializedName;
 
 public class Metrics {
 
