@@ -1,8 +1,5 @@
 package com.github.tadayosi.torchserve.client.model;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.github.tadayosi.torchserve.client.management.model.ListModels200ResponseModelsInner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +19,6 @@ public class Model {
         model.setModelName(src.getModelName());
         model.setModelUrl(src.getModelUrl());
         return model;
-    }
-
-    public static List<Model> from(List<ListModels200ResponseModelsInner> src) {
-        return src.stream().map(Model::from).collect(Collectors.toList());
     }
 
     public String getModelName() {

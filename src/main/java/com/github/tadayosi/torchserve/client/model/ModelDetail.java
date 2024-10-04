@@ -2,7 +2,8 @@ package com.github.tadayosi.torchserve.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner;
 
 public class ModelDetail extends Model {
 
@@ -19,7 +20,7 @@ public class ModelDetail extends Model {
     public ModelDetail() {
     }
 
-    public static ModelDetail from(com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner src) {
+    public static ModelDetail from(DescribeModel200ResponseInner src) {
         ModelDetail model = new ModelDetail();
         model.setModelName(src.getModelName());
         model.setModelVersion(src.getModelVersion());
@@ -29,14 +30,10 @@ public class ModelDetail extends Model {
         model.setBatchSize(src.getBatchSize());
         model.setMaxBatchDelay(src.getMaxBatchDelay());
         model.setStatus(src.getStatus());
-        model.setWorkers(Worker.from(src.getWorkers()));
+        model.setWorkers(src.getWorkers().stream().map(Worker::from).toList());
         model.setMetrics(Metrics.from(src.getMetrics()));
         model.setJobQueueStatus(JobQueueStatus.from(src.getJobQueueStatus()));
         return model;
-    }
-
-    public static List<ModelDetail> fromList(List<com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner> src) {
-        return src.stream().map(ModelDetail::from).collect(Collectors.toList());
     }
 
     public String getModelVersion() {

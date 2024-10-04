@@ -1,8 +1,5 @@
 package com.github.tadayosi.torchserve.client.model;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInnerWorkersInner;
 
 public class Worker {
@@ -26,10 +23,6 @@ public class Worker {
         worker.setGpu(src.getGpu());
         worker.setStatus(Status.from(src.getStatus()));
         return worker;
-    }
-
-    public static List<Worker> from(List<DescribeModel200ResponseInnerWorkersInner> src) {
-        return src.stream().map(Worker::from).collect(Collectors.toList());
     }
 
     public String getId() {

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.github.tadayosi.torchserve.client.Management;
 import com.github.tadayosi.torchserve.client.management.api.DefaultApi;
 import com.github.tadayosi.torchserve.client.management.invoker.ApiClient;
+import com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner;
 import com.github.tadayosi.torchserve.client.model.Api;
 import com.github.tadayosi.torchserve.client.model.ApiException;
 import com.github.tadayosi.torchserve.client.model.ModelDetail;
@@ -91,7 +92,8 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName) throws ApiException {
         try {
-            return ModelDetail.fromList(api.describeModel(modelName));
+            List<DescribeModel200ResponseInner> response = api.describeModel(modelName);
+            return response.stream().map(ModelDetail::from).toList();
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }
@@ -100,7 +102,8 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName, String modelVersion) throws ApiException {
         try {
-            return ModelDetail.fromList(api.versionDescribeModel(modelName, modelVersion));
+            List<DescribeModel200ResponseInner> response = api.versionDescribeModel(modelName, modelVersion);
+            return response.stream().map(ModelDetail::from).toList();
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }

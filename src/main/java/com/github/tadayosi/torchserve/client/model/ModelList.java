@@ -16,7 +16,7 @@ public class ModelList {
     public static ModelList from(ListModels200Response inlineResponse2001) {
         ModelList modelList = new ModelList();
         modelList.setNextPageToken(inlineResponse2001.getNextPageToken());
-        modelList.setModels(Model.from(inlineResponse2001.getModels()));
+        modelList.setModels(inlineResponse2001.getModels().stream().map(Model::from).toList());
         return modelList;
     }
 

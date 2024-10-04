@@ -1,5 +1,8 @@
 package com.github.tadayosi.torchserve.client.model;
 
+import com.github.tadayosi.torchserve.client.inference.model.Ping200Response;
+import com.github.tadayosi.torchserve.client.management.model.RegisterModel200Response;
+
 public class Response {
 
     private String status;
@@ -7,13 +10,13 @@ public class Response {
     public Response() {
     }
 
-    public static Response from(com.github.tadayosi.torchserve.client.inference.model.Ping200Response src) {
+    public static Response from(Ping200Response src) {
         Response response = new Response();
         response.setStatus(src.getStatus());
         return response;
     }
 
-    public static Response from(com.github.tadayosi.torchserve.client.management.model.RegisterModel200Response src) {
+    public static Response from(RegisterModel200Response src) {
         Response response = new Response();
         response.setStatus(src.getStatus());
         return response;
