@@ -1,7 +1,6 @@
 package com.github.tadayosi.torchserve.client.model;
 
-import com.github.tadayosi.torchserve.client.management.model.ModelsmodelNameMetrics;
-import com.google.gson.annotations.SerializedName;
+import com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInnerMetrics;
 
 public class Metrics {
 
@@ -12,7 +11,7 @@ public class Metrics {
     public Metrics() {
     }
 
-    public static Metrics from(ModelsmodelNameMetrics src) {
+    public static Metrics from(DescribeModel200ResponseInnerMetrics src) {
         if (src == null) {
             return null;
         }

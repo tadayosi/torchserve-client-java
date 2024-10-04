@@ -31,14 +31,14 @@ class ManagementTest extends TorchServeTestSupport {
     private static final String TEST_DATA_DIR = "src/test/resources/data";
 
     @Test
-    void testRegisterModel() throws Exception {
+    void testRegisterModel() {
         var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
         try {
             var response = client.management().registerModel(url, RegisterModelOptions.empty());
             assertTrue(response.getStatus().contains("registered"));
         } catch (ApiException e) {
             e.printStackTrace();
-            fail(e.getResponseBody());
+            fail(e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ class ManagementTest extends TorchServeTestSupport {
     class AfterRegisteringModel {
 
         @BeforeEach
-        void registerModel() throws Exception {
+        void registerModel() {
             var url = "https://torchserve.pytorch.org/mar_files/mnist_v2.mar";
             try {
                 client.management().registerModel(url, RegisterModelOptions.empty());
@@ -87,8 +87,8 @@ class ManagementTest extends TorchServeTestSupport {
                 var inference = new DefaultInference(torchServe.getMappedPort(8080));
                 var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "0.png"));
                 var response2 = inference.predictions(ADDED_MODEL, body);
-                assertInstanceOf(Double.class, response2);
-                assertEquals(0.0, (Double) response2, 0.001);
+                assertInstanceOf(Integer.class, response2);
+                assertEquals(0, (int) response2);
             }
 
             @Test
@@ -102,8 +102,8 @@ class ManagementTest extends TorchServeTestSupport {
                 // Testing inference with MNIST V2
                 var body = Files.readAllBytes(Path.of(TEST_DATA_DIR, "1.png"));
                 var response2 = client.inference().predictions(ADDED_MODEL, body);
-                assertInstanceOf(Double.class, response2);
-                assertEquals(1.0, (Double) response2, 0.001);
+                assertInstanceOf(Integer.class, response2);
+                assertEquals(1, (int) response2);
             }
         }
     }
@@ -125,9 +125,7 @@ class ManagementTest extends TorchServeTestSupport {
 
     @Test
     void testListModels() throws Exception {
-        int limit = 10;
-        String nextPageToken = null;
-        var response = client.management().listModels(limit, nextPageToken);
+        var response = client.management().listModels(10, null);
         var models = response.getModels();
         assertFalse(models.isEmpty());
         assertEquals(DEFAULT_MODEL, models.get(0).getModelName());
@@ -146,7 +144,7 @@ class ManagementTest extends TorchServeTestSupport {
     }
 
     @Test
-    void testToken() throws Exception {
+    void testToken() {
         assertThrows(UnsupportedOperationException.class, () -> client.management().token("management"));
     }
 

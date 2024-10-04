@@ -19,7 +19,7 @@ public class ModelDetail extends Model {
     public ModelDetail() {
     }
 
-    public static ModelDetail from(com.github.tadayosi.torchserve.client.management.model.InlineResponse2003 src) {
+    public static ModelDetail from(com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner src) {
         ModelDetail model = new ModelDetail();
         model.setModelName(src.getModelName());
         model.setModelVersion(src.getModelVersion());
@@ -35,7 +35,7 @@ public class ModelDetail extends Model {
         return model;
     }
 
-    public static List<ModelDetail> from(List<com.github.tadayosi.torchserve.client.management.model.InlineResponse2003> src) {
+    public static List<ModelDetail> fromList(List<com.github.tadayosi.torchserve.client.management.model.DescribeModel200ResponseInner> src) {
         return src.stream().map(ModelDetail::from).collect(Collectors.toList());
     }
 

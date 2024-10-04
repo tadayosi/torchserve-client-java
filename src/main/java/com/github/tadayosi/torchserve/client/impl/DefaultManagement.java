@@ -1,6 +1,7 @@
 package com.github.tadayosi.torchserve.client.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.github.tadayosi.torchserve.client.Management;
 import com.github.tadayosi.torchserve.client.management.api.DefaultApi;
@@ -43,7 +44,7 @@ public class DefaultManagement implements Management {
     @Override
     public Response registerModel(String url, RegisterModelOptions options) throws ApiException {
         try {
-            return Response.from(api.registerModel(url, null,
+            return Response.from(api.registerModel(url,
                 options.getModelName(),
                 options.getHandler(),
                 options.getRuntime(),
@@ -52,7 +53,8 @@ public class DefaultManagement implements Management {
                 options.getResponseTimeout(),
                 options.getInitialWorkers(),
                 options.getSynchronous(),
-                options.getS3SseKms()));
+                options.getS3SseKms(),
+                null));
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }
@@ -89,7 +91,7 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName) throws ApiException {
         try {
-            return ModelDetail.from(api.describeModel(modelName));
+            return ModelDetail.fromList(api.describeModel(modelName));
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }
@@ -98,7 +100,7 @@ public class DefaultManagement implements Management {
     @Override
     public List<ModelDetail> describeModel(String modelName, String modelVersion) throws ApiException {
         try {
-            return ModelDetail.from(api.versionDescribeModel(modelName, modelVersion));
+            return ModelDetail.fromList(api.versionDescribeModel(modelName, modelVersion));
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }
@@ -148,7 +150,8 @@ public class DefaultManagement implements Management {
     @Override
     public Api apiDescription() throws ApiException {
         try {
-            return Api.from(api.apiDescription());
+            // Workaround for HTTPClient 5.4 requiring content-type for OPTIONS requests
+            return Api.from(api.apiDescription(Map.of("Content-Type", "application/json")));
         } catch (com.github.tadayosi.torchserve.client.management.invoker.ApiException e) {
             throw new ApiException(e);
         }

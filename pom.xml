@@ -23,21 +23,21 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.release>17</maven.compiler.release>
 
-    <gson-fire-version>1.9.0</gson-fire-version>
-    <gson-version>2.11.0</gson-version>
+    <httpclient-version>5.4</httpclient-version>
+    <jackson-version>2.17.2</jackson-version>
+    <jackson-databind-version>2.17.2</jackson-databind-version>
+    <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
     <jakarta-annotation-api-version>3.0.0</jakarta-annotation-api-version>
     <junit-jupiter-version>5.11.1</junit-jupiter-version>
     <log4j2-version>2.24.0</log4j2-version>
-    <okhttp-version>4.12.0</okhttp-version>
     <slf4j-version>1.7.36</slf4j-version>
-    <swagger-core-version>2.2.24</swagger-core-version>
     <testcontainers-version>1.20.2</testcontainers-version>
 
     <build-helper-maven-plugin-version>3.6.0</build-helper-maven-plugin-version>
     <maven-failsafe-plugin-version>3.5.0</maven-failsafe-plugin-version>
     <maven-release-plugin-version>3.1.1</maven-release-plugin-version>
     <maven-surefire-plugin-version>3.5.0</maven-surefire-plugin-version>
-    <swagger-codegen-maven-plugin-version>3.0.62</swagger-codegen-maven-plugin-version>
+    <openapi-generator-maven-plugin-version>7.8.0</openapi-generator-maven-plugin-version>
   </properties>
 
   <dependencyManagement>
@@ -60,35 +60,48 @@
   </dependencyManagement>
 
   <dependencies>
+    <!-- HTTP client: apache client -->
     <dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>${swagger-core-version}</version>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>${httpclient-version}</version>
+    </dependency>
+
+    <!-- JSON processing: jackson -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-databind-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+      <artifactId>jackson-jakarta-rs-json-provider</artifactId>
+      <version>${jackson-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openapitools</groupId>
+      <artifactId>jackson-databind-nullable</artifactId>
+      <version>${jackson-databind-nullable-version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
       <version>${jakarta-annotation-api-version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>${okhttp-version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>logging-interceptor</artifactId>
-      <version>${okhttp-version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>${gson-version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.gsonfire</groupId>
-      <artifactId>gson-fire</artifactId>
-      <version>${gson-fire-version}</version>
     </dependency>
 
     <!-- Logging -->
@@ -112,7 +125,6 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.20.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -127,9 +139,9 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>io.swagger.codegen.v3</groupId>
-        <artifactId>swagger-codegen-maven-plugin</artifactId>
-        <version>${swagger-codegen-maven-plugin-version}</version>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator-maven-plugin</artifactId>
+        <version>${openapi-generator-maven-plugin-version}</version>
         <executions>
           <execution>
             <id>generate-inference</id>
@@ -138,17 +150,17 @@
             </goals>
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/inference.json</inputSpec>
-              <language>java</language>
+              <generatorName>java</generatorName>
               <modelPackage>com.github.tadayosi.torchserve.client.inference.model</modelPackage>
               <apiPackage>com.github.tadayosi.torchserve.client.inference.api</apiPackage>
               <invokerPackage>com.github.tadayosi.torchserve.client.inference.invoker</invokerPackage>
               <configOptions>
-                <java11>true</java11>
-                <jakarta>true</jakarta>
-                <dateLibrary>java11</dateLibrary>
-                <library>okhttp4-gson</library>
+                <useJakartaEe>true</useJakartaEe>
+                <library>apache-httpclient</library>
               </configOptions>
+              <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>
+              <skipValidateSpec>true</skipValidateSpec>
             </configuration>
           </execution>
           <execution>
@@ -158,17 +170,17 @@
             </goals>
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/management.json</inputSpec>
-              <language>java</language>
+              <generatorName>java</generatorName>
               <modelPackage>com.github.tadayosi.torchserve.client.management.model</modelPackage>
               <apiPackage>com.github.tadayosi.torchserve.client.management.api</apiPackage>
               <invokerPackage>com.github.tadayosi.torchserve.client.management.invoker</invokerPackage>
               <configOptions>
-                <java11>true</java11>
-                <jakarta>true</jakarta>
-                <dateLibrary>java11</dateLibrary>
-                <library>okhttp4-gson</library>
+                <useJakartaEe>true</useJakartaEe>
+                <library>apache-httpclient</library>
               </configOptions>
+              <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>
+              <skipValidateSpec>true</skipValidateSpec>
             </configuration>
           </execution>
           <execution>
@@ -178,17 +190,17 @@
             </goals>
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/metrics.json</inputSpec>
-              <language>java</language>
+              <generatorName>java</generatorName>
               <modelPackage>com.github.tadayosi.torchserve.client.metrics.model</modelPackage>
               <apiPackage>com.github.tadayosi.torchserve.client.metrics.api</apiPackage>
               <invokerPackage>com.github.tadayosi.torchserve.client.metrics.invoker</invokerPackage>
               <configOptions>
-                <java11>true</java11>
-                <jakarta>true</jakarta>
-                <dateLibrary>java11</dateLibrary>
-                <library>okhttp4-gson</library>
+                <useJakartaEe>true</useJakartaEe>
+                <library>apache-httpclient</library>
               </configOptions>
+              <generateModelTests>false</generateModelTests>
               <generateApiTests>false</generateApiTests>
+              <skipValidateSpec>true</skipValidateSpec>
             </configuration>
           </execution>
         </executions>
@@ -206,7 +218,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>${project.build.directory}/generated-sources/swagger/src/main/java</source>
+                <source>${project.build.directory}/generated-sources/openapi/src/main/java</source>
               </sources>
             </configuration>
           </execution>
