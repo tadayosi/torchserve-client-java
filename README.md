@@ -189,9 +189,9 @@ TorchServe Client for Java (TSC4J) is a Java client library for [TorchServe](htt
       .build();
   ```
 
-### Configuration
+## Configuration
 
-#### tsc4j.properties
+### tsc4j.properties
 
 ```properties
 inference.key = <inference-key>
@@ -209,19 +209,19 @@ metrics.address = http://localhost:8082
 metrics.port = 8082
 ```
 
-#### System properties
+### System properties
 
 You can configure the TSC4J properties via system properties with prefix `tsc4j.`.
 
 For instance, you can configure `inference.address` with the `tsc4j.inference.address` system property.
 
-#### Environment variables
+### Environment variables
 
 You can also configure the TSC4J properties via environment variables with prefix `TSC4J_`.
 
 For instance, you can configure `inference.address` with the `TSC4J_INFERENCE_ADDRESS` environment variable.
 
-### Examples
+## Examples
 
 See [examples](./examples/).
 
