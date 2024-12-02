@@ -25,7 +25,7 @@
 
     <httpclient-version>5.4.1</httpclient-version>
     <jackson-version>2.18.2</jackson-version>
-    <jackson-databind-version>2.18.1</jackson-databind-version>
+    <jackson-databind-version>2.18.2</jackson-databind-version>
     <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
     <jakarta-annotation-api-version>3.0.0</jakarta-annotation-api-version>
     <junit-jupiter-version>5.11.3</junit-jupiter-version>
