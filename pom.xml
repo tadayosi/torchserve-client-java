@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.tadayosi.torchserve</groupId>
+  <groupId>io.github.tadayosi.torchserve</groupId>
   <artifactId>torchserve-client</artifactId>
   <version>0.4-SNAPSHOT</version>
 
@@ -151,9 +151,9 @@
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/inference.json</inputSpec>
               <generatorName>java</generatorName>
-              <modelPackage>com.github.tadayosi.torchserve.client.inference.model</modelPackage>
-              <apiPackage>com.github.tadayosi.torchserve.client.inference.api</apiPackage>
-              <invokerPackage>com.github.tadayosi.torchserve.client.inference.invoker</invokerPackage>
+              <modelPackage>io.github.tadayosi.torchserve.client.inference.model</modelPackage>
+              <apiPackage>io.github.tadayosi.torchserve.client.inference.api</apiPackage>
+              <invokerPackage>io.github.tadayosi.torchserve.client.inference.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
                 <library>apache-httpclient</library>
@@ -171,9 +171,9 @@
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/management.json</inputSpec>
               <generatorName>java</generatorName>
-              <modelPackage>com.github.tadayosi.torchserve.client.management.model</modelPackage>
-              <apiPackage>com.github.tadayosi.torchserve.client.management.api</apiPackage>
-              <invokerPackage>com.github.tadayosi.torchserve.client.management.invoker</invokerPackage>
+              <modelPackage>io.github.tadayosi.torchserve.client.management.model</modelPackage>
+              <apiPackage>io.github.tadayosi.torchserve.client.management.api</apiPackage>
+              <invokerPackage>io.github.tadayosi.torchserve.client.management.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
                 <library>apache-httpclient</library>
@@ -191,9 +191,9 @@
             <configuration>
               <inputSpec>${project.basedir}/src/main/resources/v0.11.1/metrics.json</inputSpec>
               <generatorName>java</generatorName>
-              <modelPackage>com.github.tadayosi.torchserve.client.metrics.model</modelPackage>
-              <apiPackage>com.github.tadayosi.torchserve.client.metrics.api</apiPackage>
-              <invokerPackage>com.github.tadayosi.torchserve.client.metrics.invoker</invokerPackage>
+              <modelPackage>io.github.tadayosi.torchserve.client.metrics.model</modelPackage>
+              <apiPackage>io.github.tadayosi.torchserve.client.metrics.api</apiPackage>
+              <invokerPackage>io.github.tadayosi.torchserve.client.metrics.invoker</invokerPackage>
               <configOptions>
                 <useJakartaEe>true</useJakartaEe>
                 <library>apache-httpclient</library>

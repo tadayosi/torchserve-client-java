@@ -30,7 +30,7 @@ TorchServe Client for Java (TSC4J) is a Java client library for [TorchServe](htt
 
     ```xml
     <dependency>
-        <groupId>com.github.tadayosi</groupId>
+        <groupId>io.github.tadayosi</groupId>
         <artifactId>torchserve-client-java</artifactId>
         <version>v0.3</version>
     </dependency>
