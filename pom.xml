@@ -10,6 +10,22 @@
   <description>A Java client library for TorchServe</description>
   <url>https://github.com/tadayosi/torchserve-client-java</url>
 
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Tadayoshi Sato</name>
+      <email>sato.tadayoshi@gmail.com</email>
+      <url>https://github.com/tadayosi</url>
+    </developer>
+  </developers>
+
   <scm>
     <connection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</connection>
     <developerConnection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</developerConnection>
@@ -34,8 +50,12 @@
     <testcontainers-version>1.20.4</testcontainers-version>
 
     <build-helper-maven-plugin-version>3.6.0</build-helper-maven-plugin-version>
+    <central-publishing-maven-plugin-version>0.6.0</central-publishing-maven-plugin-version>
     <maven-failsafe-plugin-version>3.5.0</maven-failsafe-plugin-version>
+    <maven-gpg-plugin-version>3.2.7</maven-gpg-plugin-version>
+    <maven-javadoc-plugin-version>3.11.2</maven-javadoc-plugin-version>
     <maven-release-plugin-version>3.1.1</maven-release-plugin-version>
+    <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
     <maven-surefire-plugin-version>3.5.1</maven-surefire-plugin-version>
     <openapi-generator-maven-plugin-version>7.8.0</openapi-generator-maven-plugin-version>
   </properties>
@@ -244,4 +264,66 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin-version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin-version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin-version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- OSSRH -->
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central-publishing-maven-plugin-version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>true</autoPublish>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
