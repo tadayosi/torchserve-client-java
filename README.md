@@ -1,6 +1,6 @@
 # TorchServe Client for Java
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.tadayosi.torchserve/torchserve-client/badge.svg?style=flat-square)](https://repo1.maven.org/maven2/io/github/tadayosi/torchserve/torchserve-client/)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.tadayosi.torchserve/torchserve-client/badge.svg?style=flat)](https://repo1.maven.org/maven2/io/github/tadayosi/torchserve/torchserve-client/)
 [![Test](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml/badge.svg)](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml)
 
 TorchServe Client for Java (TSC4J) is a Java client library for [TorchServe](https://pytorch.org/serve/index.html). It supports the following [TorchServe REST API](https://pytorch.org/serve/rest_api.html):
