@@ -4,7 +4,7 @@
 
   <groupId>io.github.tadayosi.torchserve</groupId>
   <artifactId>torchserve-client</artifactId>
-  <version>0.4.0</version>
+  <version>0.5-SNAPSHOT</version>
 
   <name>TorchServe Client for Java</name>
   <description>A Java client library for TorchServe</description>
@@ -30,7 +30,7 @@
     <connection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</connection>
     <developerConnection>scm:git:git@github.com:tadayosi/torchserve-client-java.git</developerConnection>
     <url>git@github.com:tadayosi/torchserve-client-java.git</url>
-    <tag>v0.4.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
