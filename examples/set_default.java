@@ -2,7 +2,7 @@
 
 //JAVA 17+
 //REPOS mavencentral,jitpack=https://jitpack.io
-//DEPS io.github.tadayosi:torchserve-client-java:main-SNAPSHOT
+//DEPS com.github.tadayosi:torchserve-client-java:main-SNAPSHOT
 //DEPS org.slf4j:slf4j-simple:1.7.36
 
 import io.github.tadayosi.torchserve.client.TorchServeClient;
