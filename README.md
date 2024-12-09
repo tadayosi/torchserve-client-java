@@ -1,6 +1,6 @@
 # TorchServe Client for Java
 
-[![Release](https://jitpack.io/v/tadayosi/torchserve-client-java.svg)](<https://jitpack.io/#tadayosi/torchserve-client-java>)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.tadayosi.torchserve/torchserve-client/badge.svg?style=flat-square)](https://repo1.maven.org/maven2/io/github/tadayosi/torchserve/torchserve-client/)
 [![Test](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml/badge.svg)](https://github.com/tadayosi/torchserve-client-java/actions/workflows/test.yml)
 
 TorchServe Client for Java (TSC4J) is a Java client library for [TorchServe](https://pytorch.org/serve/index.html). It supports the following [TorchServe REST API](https://pytorch.org/serve/rest_api.html):
@@ -15,26 +15,15 @@ TorchServe Client for Java (TSC4J) is a Java client library for [TorchServe](htt
 
 ## Install
 
-1. Add the [JitPack](https://jitpack.io) repository to your `pom.xml`:
+Add the dependency to your `pom.xml`:
 
-    ```xml
-    <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
-    ```
-
-2. Add the dependency:
-
-    ```xml
-    <dependency>
-        <groupId>com.github.tadayosi</groupId>
-        <artifactId>torchserve-client-java</artifactId>
-        <version>v0.3</version>
-    </dependency>
-    ```
+```xml
+<dependency>
+    <groupId>io.github.tadayosi.torchserve</groupId>
+    <artifactId>torchserve-client</artifactId>
+    <version>0.4.0</version>
+</dependency>
+```
 
 ## Usage
 
