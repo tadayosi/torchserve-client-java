@@ -57,7 +57,7 @@
     <maven-release-plugin-version>3.1.1</maven-release-plugin-version>
     <maven-source-plugin-version>3.3.1</maven-source-plugin-version>
     <maven-surefire-plugin-version>3.5.2</maven-surefire-plugin-version>
-    <openapi-generator-maven-plugin-version>7.10.0</openapi-generator-maven-plugin-version>
+    <openapi-generator-maven-plugin-version>7.11.0</openapi-generator-maven-plugin-version>
   </properties>
 
   <dependencyManagement>
