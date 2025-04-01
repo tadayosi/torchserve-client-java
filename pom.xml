@@ -44,7 +44,7 @@
     <jackson-databind-version>2.18.3</jackson-databind-version>
     <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
     <jakarta-annotation-api-version>3.0.0</jakarta-annotation-api-version>
-    <junit-jupiter-version>5.11.4</junit-jupiter-version>
+    <junit-jupiter-version>5.12.1</junit-jupiter-version>
     <log4j2-version>2.24.3</log4j2-version>
     <slf4j-version>1.7.36</slf4j-version>
     <testcontainers-version>1.20.5</testcontainers-version>
