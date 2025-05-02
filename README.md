@@ -1,3 +1,5 @@
+⚠️ **TorchServe is now in limited maintenance. This project is not maintained anymore as well.** ⚠️
+
 # TorchServe Client for Java
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.tadayosi.torchserve/torchserve-client/badge.svg?style=flat)](https://repo1.maven.org/maven2/io/github/tadayosi/torchserve/torchserve-client/)
@@ -21,7 +23,7 @@ Add the dependency to your `pom.xml`:
 <dependency>
     <groupId>io.github.tadayosi.torchserve</groupId>
     <artifactId>torchserve-client</artifactId>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
 </dependency>
 ```
 
